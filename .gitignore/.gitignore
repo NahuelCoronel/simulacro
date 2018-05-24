@@ -1,0 +1,41 @@
+--f h  p = any (<h). map p . snd
+
+
+-- 1) Dar el tipo de la función  f.
+
+-- 2) Mejorar la función f en términos de expresividad.
+
+-- 3) Dar dos ejemplos de invocación, uno que termine y otro que no, que sirvan para explicar la estrategia de evaluación de Haskell
+
+-- 1) f :: Ord a => a -> ( d -> a ) -> (c,[d]) -> Bool 
+-- 2) 
+
+module SimulacroParcial where
+
+import Text.Show.Functions
+
+data Ayudante = UnAyudante { nombre::String,
+                             conceptoParadigma::[(String, Int)] } deriving Show
+
+							 
+guille = UnAyudante { nombre = "Guille",
+                     conceptoParadigma = [("orden superior", 6), ("expresiones lambda", 7), ("fold2", 8)] }
+
+
+elChacal = UnAyudante { nombre = "El Chacal", 
+                        conceptoParadigma = [ ("aplicacion parcial", 9), ("fold", 6), ("sinonimos de tipo", 7)] }
+
+vicky = UnAyudante { nombre = "Vicky",
+                     conceptoParadigma = [ ("clases de tipo", 5), ("aplicacion parcial", 8), ("tuplas", 9), ("orden superior", 8)] }
+
+
+conjuntoDeAyudantes= [guille, elChacal, vicky]
+
+--cuantosPoseenEsteNivel :: Int -> [Ayudante] -> Int
+--cuantosPoseenEsteNivel nivel  ayudantes = cuantosNivelesRequeridos(filter (nivelesRequeridos nivel) ayudantes)
+
+listaConNiveles ayudante = map snd (conceptoParadigma ayudante)
+
+nivelesRequeridos ayudante nivel = elem nivel (listaConNiveles ayudante)
+
+cuantosNivelesRequeridos lista = length lista
